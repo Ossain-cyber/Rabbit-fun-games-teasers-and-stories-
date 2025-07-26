@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rabbit Fun Site 🐰</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f9;
+      color: #333;
+    }
+    header, footer {
+      background: #6a1b9a;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: #8e24aa;
+      padding: 0.5rem;
+    }
+    nav button {
+      background: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .section {
+      display: none;
+      padding: 1rem;
+    }
+    .active {
+      display: block;
+    }
+    .quiz {
+      background: white;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    .quiz h4 {
+      margin-top: 0;
+    }
+    .options button {
+      display: block;
+      margin: 0.3rem 0;
+      width: 100%;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .correct {
+      background-color: #c8e6c9;
+    }
+    .wrong {
+      background-color: #ffcdd2;
+    }
+    .game-box {
+      background: white;
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <header>Rabbit Fun Website 🐰</header>
+  <nav>
+    <button onclick="showSection('games')">Games</button>
+    <button onclick="showSection('teasers')">Teasers</button>
+    <button onclick="showSection('stories')">Stories</button>
+  </nav>  <!-- Games Section -->  <div id="games" class="section active">
+    <div class="game-box">
+      <h3>Flappy Rabbit (Tap to Jump)</h3>
+      <canvas id="flappy" width="300" height="400" style="background:#c8f3ff"></canvas>
+    </div>
+    <!-- More games can be added here later -->
+  </div>  <!-- Teasers Section -->  <div id="teasers" class="section">
+    <div class="quiz">
+      <h4>1. What has keys but can’t open locks?</h4>
+      <div class="options">
+        <button onclick="check(this, false)">A door</button>
+        <button onclick="check(this, true)">A piano</button>
+        <button onclick="check(this, false)">A locker</button>
+        <button onclick="check(this, false)">A keyboard</button>
+      </div>
+    </div>
+    <div class="quiz">
+      <h4>2. What can travel around the world while staying in the corner?</h4>
+      <div class="options">
+        <button onclick="check(this, true)">A stamp</button>
+        <button onclick="check(this, false)">A satellite</button>
+        <button onclick="check(this, false)">A phone</button>
+        <button onclick="check(this, false)">WiFi</button>
+      </div>
+    </div>
+    <div class="quiz">
+      <h4>3. What comes once in a minute, twice in a moment, but never in a thousand years?</h4>
+      <div class="options">
+        <button onclick="check(this, false)">Time</button>
+        <button onclick="check(this, true)">The letter M</button>
+        <button onclick="check(this, false)">Flash</button>
+        <button onclick="check(this, false)">Event</button>
+      </div>
+    </div>
+  </div>  <!-- Stories Section -->  <div id="stories" class="section">
+    <h3>Funny Rabbit Story</h3>
+    <p>One day, a rabbit applied for a job as a website developer. When asked for his portfolio, he pulled out a carrot and said, "I coded this myself. It's 24-karat!" 🥕</p>
+  </div>  <footer>
+    Created by Hussain | WhatsApp: +2349058562478 | Email: hussainadedamolalawal@gmail.com
+  </footer>  <!-- Scripts -->  <script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function check(btn, isCorrect) {
+      const buttons = btn.parentElement.querySelectorAll('button');
+      buttons.forEach(b => b.disabled = true);
+      if (isCorrect) {
+        btn.classList.add('correct');
+        new Audio("data:audio/mp3;base64,Uk...correct_sound...").play();
+      } else {
+        btn.classList.add('wrong');
+        new Audio("data:audio/mp3;base64,Uk...wrong_sound...").play();
+      }
+    }
+
+    // Basic Flappy Game Canvas Logic (tap to jump)
+    const canvas = document.getElementById("flappy");
+    const ctx = canvas.getContext("2d");
+    let y = 200, velocity = 0, gravity = 0.5;
+
+    function drawFlappy() {
+      ctx.clearRect(0, 0, 300, 400);
+      velocity += gravity;
+      y += velocity;
+      if (y > 400) y = 400;
+      ctx.fillStyle = "purple";
+      ctx.beginPath();
+      ctx.arc(50, y, 15, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    canvas.addEventListener("click", () => {
+      velocity = -7;
+    });
+
+    setInterval(drawFlappy, 20);
+  </script></body>
+</html>
